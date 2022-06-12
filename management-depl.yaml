@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bolnica-managemnt
+  name: bolnica-management
   labels:
-    app: bolnica-managemnt
+    app: bolnica-management
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: bolnica-managemnt
+      app: bolnica-management
   template:
     metadata:
       labels:
-        app: bolnica-managemnt
+        app: bolnica-management
     spec:
       containers:
-      - name: bolnica-managemnt
+      - name: bolnica-management
         imagePullPolicy: Always
-        image: ghcr.io/raf-si-2021/bolnica-managemnt-service:latest
+        image: ghcr.io/raf-si-2021/bolnica-management-service:latest
         resources:
           limits:
             cpu: "1"
@@ -43,10 +43,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: bolnica-managemnt
+  name: bolnica-management
 spec:
   selector:
-    app: bolnica-managemnt
+    app: bolnica-management
   ports: 
     - protocol: TCP
       port: 8082
