@@ -28,7 +28,7 @@ spec:
       labels:
         app: management-db
     spec:
-      terminationGracePeriod: 10
+      terminationGracePeriodSeconds: 10
       containers:
         - name: mysql
           image: mysql
