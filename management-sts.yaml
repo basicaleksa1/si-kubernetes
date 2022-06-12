@@ -5,7 +5,7 @@ metadata:
   labels:
     app: management-db
 spec:
-  clusterIp: None
+  clusterIP: None
   selector:
     app: management-db
   ports:
@@ -42,6 +42,19 @@ spec:
                   name: bolnica-secret
                   key: mysql-root-password
           volumeMounts: 
+            - mountPath:
+              name: management-vol
+
+  volumeClaimTemplates:
+    - metadata:
+        name: management-vol
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 8Gi
+        storageClassName: nfs-client 
 
 
           # ostalo je da vidis kako da se odrade ovi klejmovi i ostala sranja vezana za sts
