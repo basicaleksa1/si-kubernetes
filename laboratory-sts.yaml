@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: laboratory-db
+  labels:
+    app: laboratory-db
+spec:
+  clusterIP: None
+  selector:
+    app: laboratory-db
+  ports:
+    - name: tcp
+      protocol: TCP
+      port: 3306
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: laboratory-db
+spec:
+  selector:
+    matchLabels:
+      app: laboratory-db
+  serviceName: "laboratory-db"
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: laboratory-db
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: mysql
+          image: mysql
+          ports:
+            - containerPort: 3306
+              name: laboratory-db
+          env: 
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: bolnica-secret
+                  key: mysql-root-password
+          volumeMounts: 
+            - mountPath: /var/lib/mysql
+              name: laboratory-vol
+
+  volumeClaimTemplates:
+    - metadata:
+        name: laboratory-vol
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 8Gi
+        storageClassName: nfs-client 
+
+
+          # ostalo je da vidis kako da se odrade ovi klejmovi i ostala sranja vezana za sts
