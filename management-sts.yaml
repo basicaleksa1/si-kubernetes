@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: management-db
+  labels:
+    app: management-db
+spec:
+  clusterIp: None
+  selector:
+    app: management-db
+  ports:
+    - name: tcp
+      protocol: TCP
+      port: 3306
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: management-db
+spec:
+  selector:
+    matchLabels:
+      app: management-db
+  serviceName: "management-db"
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: management-db
+    spec:
+      terminationGracePerion: 10
+      containers:
+        - name: mysql
+          image: mysql
+          ports:
+            - continerPort: 3306
+              name: management-db
+          env: 
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: bolnica-secret
+                  key: mysql-root-password
+          volumeMounts: 
+
+
+          # ostalo je da vidis kako da se odrade ovi klejmovi i ostala sranja vezana za sts
