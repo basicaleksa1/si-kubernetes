@@ -41,6 +41,10 @@ spec:
                 secretKeyRef:
                   name: bolnica-secret
                   key: mysql-root-password
+          volumes:
+          - name: mysql-initdb
+            configMap:
+              name: mysql-initdb-config
           volumeMounts: 
             - mountPath: /var/lib/mysql
               name: user-vol
@@ -55,6 +59,11 @@ spec:
           requests:
             storage: 8Gi
         storageClassName: nfs-client 
-
-
-          # ostalo je da vidis kako da se odrade ovi klejmovi i ostala sranja vezana za sts
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-initdb-config
+data:
+  initdb.sql: |
+    CREATE DATABASE IF NOT EXISTS user;
