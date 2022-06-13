@@ -22,7 +22,7 @@ spec:
     matchLabels:
       app: management-db
   serviceName: "management-db"
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
