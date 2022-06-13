@@ -18,24 +18,3 @@ spec:
                 name: front
                 port: 
                   number: 80
-
-    # - host: bolnica.dev.ibis.com
-    #   http:
-    #     paths:
-    #       - path: /front
-    #         pathType: Prefix
-    #         backend: 
-    #           service:
-    #             name: front
-    #             port: 
-    #               number: 80
-    # - host: bolnica.dev.ibis.com
-    #   http:
-    #     paths:
-    #       - path: /front
-    #         pathType: Prefix
-    #         backend: 
-    #           service:
-    #             name: front
-    #             port: 
-    #               number: 80
