@@ -3,7 +3,10 @@ kind: Ingress
 metadata:
   name: bolnica-ingress
   namespace: bolnica-dev
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+  ingressClassName: nginx
   rules:
     - host: ibis-solutions.com
       http:
