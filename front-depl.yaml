@@ -24,7 +24,7 @@ spec:
               memory: 1Gi
           ports:
             - name: front
-              containerPort: 3000
+              containerPort: 3001
 ---
 apiVersion: v1
 kind: Service
