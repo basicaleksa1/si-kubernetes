@@ -15,6 +15,7 @@ spec:
         app: bolnica-user
     spec:
       containers:
+      terminationMessagePath: "/tmp/my-log"
       - name: bolnica-user
         imagePullPolicy: Always
         image: ghcr.io/raf-si-2021/bolnica-user-service:latest
