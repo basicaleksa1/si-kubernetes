@@ -8,7 +8,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: bolnica.dev.ibis.com
+    - host: dev.bolnica.raf.ibis.com
       http:
         paths:
           - path: "/"
