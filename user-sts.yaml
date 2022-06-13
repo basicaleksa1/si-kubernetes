@@ -41,13 +41,13 @@ spec:
                 secretKeyRef:
                   name: bolnica-secret
                   key: mysql-root-password
-          volumes:
-          - name: mysql-initdb
-            configMap:
-              name: mysql-initdb-config
           volumeMounts: 
             - mountPath: /var/lib/mysql
               name: user-vol
+      volumes:
+      - name: mysql-initdb
+        configMap:
+          name: mysql-initdb-config
 
   volumeClaimTemplates:
     - metadata:
