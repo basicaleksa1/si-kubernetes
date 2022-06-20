@@ -5,7 +5,7 @@ metadata:
   labels:
     app: bolnica-management
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: bolnica-management
