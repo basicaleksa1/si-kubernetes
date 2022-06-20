@@ -1,5 +1,5 @@
 
-apiVersion: vq
+apiVersion: v1
 kind: ConfigMap
 metadata:
   name: mysql-initdb-config
