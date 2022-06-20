@@ -46,10 +46,10 @@ spec:
               name: bolnica-db-vol
             - name: mysql-initdb
               mountPath: /docker-entrypoint-initdb.d
-          volumes:
-            - name: mysql-initdb
-              configMap:
-                name: mysql-initdb-config
+      volumes:
+        - name: mysql-initdb
+          configMap:
+            name: mysql-initdb-config
 
   volumeClaimTemplates:
     - metadata:
