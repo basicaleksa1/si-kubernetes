@@ -61,14 +61,3 @@ spec:
           requests:
             storage: 10Gi
         storageClassName: nfs-client 
-
----
-apiVersion: vq
-kind: ConfigMap
-metadata:
-  name: mysql-initdb-config
-data:
-  init.sql: |
-    CREATE DATABASE IF NOT EXISTS user;
-    CREATE DATABASE IF NOT EXISTS management;
-    CREATE DATABASE IF NOT EXISTS laboratory;
