@@ -18,21 +18,21 @@ spec:
                 name: front
                 port: 
                   number: 80
-          - path: "/bolnica-user"
+          - path: "/bolnica-user(/|$)(.*)"
             pathType: Prefix
             backend: 
               service:
                 name: bolnica-user
                 port: 
                   number: 8081
-          - path: "/bolnica-management"
+          - path: "/bolnica-management(/|$)(.*)"
             pathType: Prefix
             backend: 
               service:
                 name: bolnica-management
                 port: 
                   number: 8082
-          - path: "/bolnica-laboratory"
+          - path: "/bolnica-laboratory(/|$)(.*)"
             pathType: Prefix
             backend: 
               service:
