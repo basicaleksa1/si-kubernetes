@@ -24,7 +24,7 @@ spec:
             memory: "1Gi"
         env: # napraviti env vaijable da bi mogli da lepo koristimo servise
           - name: "spring.datasource.url"
-            value: "jdbc:mysql://laboratory-db:3306/laboratory?serverTimezone=UTC"
+            value: "jdbc:mysql://bolnica-db:3306/laboratory?serverTimezone=UTC"
           - name: "spring.datasource.username"
             value: root
           - name: "spring.datasource.password"

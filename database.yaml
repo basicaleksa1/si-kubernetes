@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: laboratory-db
+  name: bolnica-db
   labels:
-    app: laboratory-db
+    app: bolnica-db
 spec:
   clusterIP: None
   selector:
-    app: laboratory-db
+    app: bolnica-db
   ports:
     - name: tcp
       protocol: TCP
@@ -16,17 +16,17 @@ spec:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: laboratory-db
+  name: bolnica-db
 spec:
   selector:
     matchLabels:
-      app: laboratory-db
-  serviceName: "laboratory-db"
+      app: bolnica-db
+  serviceName: "bolnica-db"
   replicas: 1
   template:
     metadata:
       labels:
-        app: laboratory-db
+        app: bolnica-db
     spec:
       terminationGracePeriodSeconds: 10
       containers:
@@ -34,7 +34,7 @@ spec:
           image: mysql
           ports:
             - containerPort: 3306
-              name: laboratory-db
+              name: bolnica-db
           env: 
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
@@ -43,18 +43,26 @@ spec:
                   key: mysql-root-password
           volumeMounts: 
             - mountPath: /var/lib/mysql
-              name: laboratory-vol
+              name: bolnica-db-vol
 
   volumeClaimTemplates:
     - metadata:
-        name: laboratory-vol
+        name: bolnica-db-vol
       spec:
         accessModes:
           - ReadWriteOnce
         resources:
           requests:
-            storage: 8Gi
+            storage: 10Gi
         storageClassName: nfs-client 
 
-
-          # ostalo je da vidis kako da se odrade ovi klejmovi i ostala sranja vezana za sts
+---
+apiVersion: vq
+kind: ConfigMap
+metadata:
+  name: mysql-initdb-config
+data:
+  init.sql: |
+    CREATE DATABASE IF NOT EXISTS user;
+    CREATE DATABASE IF NOT EXISTS management;
+    CREATE DATABASE IF NOT EXISTS laboratory;
