@@ -4,7 +4,7 @@ metadata:
   name: bolnica-ingress
   namespace: bolnica-dev
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    # nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
   rules:
@@ -18,7 +18,7 @@ spec:
                 name: front
                 port: 
                   number: 80
-          - path: "/bolnica-user(/|$)(.*)"
+          - path: "/bolnica-user"
             pathType: Prefix
             backend: 
               service:
