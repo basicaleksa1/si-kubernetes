@@ -24,7 +24,7 @@ spec:
             memory: "1Gi"
         env: # napraviti env vaijable da bi mogli da lepo koristimo servise
           - name: "spring.datasource.url"
-            value: "jdbc:mysql:replication//mysql-0.mysql:3306,mysql-read/user?serverTimezone=UTC"
+            value: "jdbc:mysql:replication://mysql-0.mysql:3306,mysql-read/user?serverTimezone=UTC"
           - name: "spring.datasource.username"
             value: root
           # - name: "spring.datasource.password"
