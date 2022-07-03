@@ -24,15 +24,15 @@ spec:
             memory: "1Gi"
         env: # napraviti env vaijable da bi mogli da lepo koristimo servise
           - name: "spring.datasource.url"
-            value: "jdbc:mysql://bolnica-db:3306/management?serverTimezone=UTC"
+            value: "jdbc:mysql:replication//mysql-0.mysql:3306,mysql-read/user?serverTimezone=UTC"
           - name: "spring.datasource.username"
             value: root
-          - name: "spring.datasource.password"
-            valueFrom: 
-                secretKeyRef: 
-                  name: bolnica-secret
-                  key: mysql-root-password
-                  optional: false
+          # - name: "spring.datasource.password"
+          #   valueFrom: 
+          #       secretKeyRef: 
+          #         name: bolnica-secret
+          #         key: mysql-root-password
+          #         optional: false
           - name: "spring.jpa.generate-ddl"
             value: "true"
           - name: "spring.jpa.hibernate.ddl-auto"
