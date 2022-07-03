@@ -25,7 +25,7 @@ spec:
             memory: "1Gi"
         env: 
           - name: "spring.datasource.url"
-            value: "jdbc:mysql://mysql-0.mysql:3306/user?serverTimezone=UTC"
+            value: "jdbc:mysql://mysql:3306/user?serverTimezone=UTC"
           - name: "spring.datasource.username"
             value: root
           # - name: "spring.datasource.password"
