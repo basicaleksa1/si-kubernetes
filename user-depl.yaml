@@ -24,18 +24,16 @@ spec:
             cpu: "1"
             memory: "1Gi"
         env:
-          - name: "spring.datasource.driver-class-name"
-            value: "com.mysql.jdbc.ReplicationDriver"
           - name: "spring.datasource.url"
-            value: "jdbc:mysql:replication://mysql-0.mysql:3306,mysql-read/user?serverTimezone=UTC"
+            value: "jdbc:mysql://bolnica-db:3306/user?serverTimezone=UTC"
           - name: "spring.datasource.username"
             value: root
-          # - name: "spring.datasource.password"
-          #   valueFrom: 
-          #       secretKeyRef: 
-          #         name: bolnica-secret
-          #         key: mysql-root-password
-          #         optional: false
+          - name: "spring.datasource.password"
+            valueFrom: 
+                secretKeyRef: 
+                  name: bolnica-secret
+                  key: mysql-root-password
+                  optional: false
           - name: "spring.jpa.generate-ddl"
             value: "true"
           - name: "spring.jpa.hibernate.ddl-auto"
