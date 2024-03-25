@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bolnica-ingress-front
+  namespace: bolnica-dev
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: bolnica.k8s.elab.rs
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend: 
+              service:
+                name: front
+                port: 
+                  number: 80

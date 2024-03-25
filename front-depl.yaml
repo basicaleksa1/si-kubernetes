@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front
+  labels:
+    app: front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: front
+  template:
+    metadata:
+      labels:
+        app: front
+    spec:
+      containers:
+        - image: ghcr.io/raf-si-2021/bolnica-front:latest
+          name: bolnica-front
+          imagePullPolicy: Always
+          resources: 
+            limits:
+              cpu: "1"
+              memory: 2Gi
+          ports:
+            - name: front
+              containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: front
+  labels:
+    app: front
+spec:
+  selector:
+    app: front
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 3000

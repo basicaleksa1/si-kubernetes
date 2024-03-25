@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: bolnica-db
+  labels:
+    app: bolnica-db
+spec:
+  clusterIP: None
+  selector:
+    app: bolnica-db
+  ports:
+    - name: tcp
+      protocol: TCP
+      port: 3306
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: bolnica-db
+spec:
+  selector:
+    matchLabels:
+      app: bolnica-db
+  serviceName: "bolnica-db"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: bolnica-db
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: mysql
+          image: mysql
+          ports:
+            - containerPort: 3306
+              name: bolnica-db
+          env: 
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: bolnica-secret
+                  key: mysql-root-password
+          volumeMounts: 
+            - mountPath: /var/lib/mysql
+              name: bolnica-db-vol
+            - name: mysql-initdb
+              mountPath: /docker-entrypoint-initdb.d
+      volumes:
+        - name: mysql-initdb
+          configMap:
+            name: mysql-initdb-config
+
+  volumeClaimTemplates:
+    - metadata:
+        name: bolnica-db-vol
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 10Gi
+        storageClassName: nfs-client 

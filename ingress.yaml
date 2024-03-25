@@ -1,0 +1,41 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bolnica-ingress
+  namespace: bolnica-dev
+  annotations:
+    # nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: bolnica.k8s.elab.rs
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend: 
+              service:
+                name: front
+                port: 
+                  number: 80
+          - path: "/bolnica-user"
+            pathType: Prefix
+            backend: 
+              service:
+                name: bolnica-user
+                port: 
+                  number: 8081
+          - path: "/bolnica-management(/|$)(.*)"
+            pathType: Prefix
+            backend: 
+              service:
+                name: bolnica-management
+                port: 
+                  number: 8082
+          - path: "/bolnica-laboratory(/|$)(.*)"
+            pathType: Prefix
+            backend: 
+              service:
+                name: bolnica-laboratory
+                port: 
+                  number: 8083

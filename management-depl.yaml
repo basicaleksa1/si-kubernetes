@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bolnica-management
+  labels:
+    app: bolnica-management
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bolnica-management
+  template:
+    metadata:
+      labels:
+        app: bolnica-management
+    spec:
+      containers:
+      - name: bolnica-management
+        imagePullPolicy: Always
+        image: ghcr.io/raf-si-2021/bolnica-management-service:latest
+        resources:
+          limits:
+            cpu: "1"
+            memory: "1Gi"
+        env: # napraviti env vaijable da bi mogli da lepo koristimo servise
+          - name: "spring.datasource.url"
+            value: "jdbc:mysql://bolnica-db:3306/management?serverTimezone=UTC"
+          - name: "spring.datasource.username"
+            value: root
+          - name: "spring.datasource.password"
+            valueFrom: 
+                secretKeyRef: 
+                  name: bolnica-secret
+                  key: mysql-root-password
+                  optional: false
+          - name: "spring.jpa.generate-ddl"
+            value: "true"
+          - name: "spring.jpa.hibernate.ddl-auto"
+            value: "update"
+        ports:
+        - containerPort: 8082
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bolnica-management
+spec:
+  selector:
+    app: bolnica-management
+  ports: 
+    - protocol: TCP
+      port: 8082
+      targetPort: 8082
+
+# u ingresu servicePort i u servisu port treba da se poklapaju
